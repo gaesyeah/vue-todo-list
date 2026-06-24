@@ -142,6 +142,7 @@ const taskHasEmptyField = Object.entries(props.task).some(
   opacity: 0.25;
   font-size: 110px;
   z-index: 1;
+  pointer-events: none;
 }
 
 hr {
