@@ -64,14 +64,14 @@ const disabled = computed(() => props.disabled || props.isLoading);
   height: 24px;
   border-radius: 8px;
   padding-left: 5px;
-  font-size: 14px;
+  font-size: 16px;
   border: 2px solid gray;
 }
 .textarea {
   height: 50px;
 }
 .input::placeholder {
-  font-size: 14px;
+  font-size: 16px;
 }
 .input-loading {
   cursor: progress;

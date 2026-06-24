@@ -30,7 +30,6 @@ const taskErrorHandler = (error: AxiosError) => {
     toast.add({
       severity: 'error',
       summary: 'Erro!',
-      life: 3000,
       detail,
     });
   }

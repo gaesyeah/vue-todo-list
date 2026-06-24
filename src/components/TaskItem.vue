@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Task, TaskDTO } from '@/types/task.types';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import BaseInput from './BaseInput.vue';
 import Checkbox from 'primevue/checkbox';
 
@@ -37,26 +37,15 @@ const updateTask = () => {
 const taskHasEmptyField = Object.entries(props.task).some(
   ([key, value]) => (key as keyof TaskDTO) !== 'isTaskDoneStatus' && !value,
 );
+
+const taskDoneStatusClass = computed(() =>
+  props.task.isTaskDoneStatus ? ['pi-check-circle', 'green-icon'] : ['pi-ban', 'red-icon'],
+);
 </script>
 
 <template>
-  <li
-    :class="{
-      'task-item': true,
-      'task-item-gap': isUpdateEnabled,
-    }"
-  >
-    <i
-      :class="{
-        pi: true,
-        'done-overlay': true,
-        'pi-ban': !props.task.isTaskDoneStatus,
-        'red-icon': !props.task.isTaskDoneStatus,
-        'pi-check-circle': props.task.isTaskDoneStatus,
-        'green-icon': props.task.isTaskDoneStatus,
-      }"
-    ></i>
-
+  <li :class="['task-item', { 'task-item-gap': isUpdateEnabled }]">
+    <i :class="['pi', 'done-overlay', taskDoneStatusClass]"></i>
     <div class="name-input-container">
       <BaseInput
         v-model="updateTaskInputValue.name"
@@ -106,11 +95,13 @@ const taskHasEmptyField = Object.entries(props.task).some(
       "
     >
       <i
-        class="pi"
-        :class="{
-          'pi-check-square green-icon': isUpdateEnabled,
-          'pi-pen-to-square blue-icon': !isUpdateEnabled,
-        }"
+        :class="[
+          'pi',
+          {
+            'pi-check-square green-icon': isUpdateEnabled,
+            'pi-pen-to-square update-icon': !isUpdateEnabled,
+          },
+        ]"
       ></i>
     </button>
   </li>
@@ -174,7 +165,7 @@ hr {
 .update-icon-button {
   bottom: -9px;
 }
-.blue-icon {
+.update-icon {
   color: blue;
 }
 .red-icon {
@@ -184,8 +175,12 @@ hr {
   color: green;
 }
 .icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   right: -9px;
-  font-size: 15px;
+  width: 28px;
+  height: 28px;
   border: 2px solid gray;
   background-color: white;
   border-radius: 100%;
