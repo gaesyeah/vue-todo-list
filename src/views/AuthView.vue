@@ -58,7 +58,7 @@ const { mutate: signUp, isPending: isSignUpLoading } = useMutation({
   onError: (error) => authResponseHandler('error', error),
 });
 
-const isLoading = computed(() => (isSignUp ? isSignUpLoading.value : isSignInLoading.value));
+const isLoading = computed(() => (isSignUp.value ? isSignUpLoading.value : isSignInLoading.value));
 
 const buttonText = computed(() => {
   if (isLoading.value) return 'Carregando...';
