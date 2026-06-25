@@ -2,8 +2,7 @@ import axios from 'axios';
 import router from '@/router';
 
 const api = axios.create({
-  //TODO mudar para pegar a url do .env
-  baseURL: 'http://localhost:3000/',
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 api.interceptors.request.use((config) => {
